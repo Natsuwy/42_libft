@@ -37,9 +37,9 @@ fclean : clean
 
 re : fclean all
 
-so	:
-		$(CC) -nostartfiles -fPIC $(FLAG) $(SOURCES)
-		gcc -nostartfiles -shared -o libft.so $(OBJ) $(BONUS)
+#so	:
+#		$(CC) -nostartfiles -fPIC $(FLAG) $(SOURCES)
+#		gcc -nostartfiles -shared -o libft.so $(OBJ) $(BONUS)
 
 bonus:			$(OBJ) $(BONUS_OBJS)
 				ar -rcs $(NAME) $(OBJ) $(BONUS_OBJS)
