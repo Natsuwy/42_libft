@@ -6,7 +6,7 @@
 /*   By: michen <michen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 20:18:29 by michen            #+#    #+#             */
-/*   Updated: 2023/12/04 16:47:39 by michen           ###   ########.fr       */
+/*   Updated: 2023/12/05 16:11:37 by michen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,18 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*new_lst;
 	t_list	*new;
+	void	*tmp;
 
 	if (!lst || !f || !del)
 		return (NULL);
 	new_lst = NULL;
 	while (lst)
 	{
-		new = ft_lstnew(f(lst->content));
+		tmp = f(lst->content);
+		new = ft_lstnew(tmp);
 		if (!new)
 		{
+			del(tmp);
 			ft_lstclear(&new_lst, del);
 			return (NULL);
 		}

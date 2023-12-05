@@ -6,7 +6,7 @@
 /*   By: michen <michen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 19:04:36 by michen            #+#    #+#             */
-/*   Updated: 2023/11/28 17:38:54 by michen           ###   ########.fr       */
+/*   Updated: 2023/12/05 16:01:48 by michen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	countword(const char *str, char set)
 	return (word);
 }
 
-void	split_string(const char *s, char c, char **res, int *j)
+int	split_string(const char *s, char c, char **res, int *j)
 {
 	int	k;
 	int	i;
@@ -44,7 +44,7 @@ void	split_string(const char *s, char c, char **res, int *j)
 	while (s[i])
 	{
 		while (s[i] == c)
-			(i)++;
+			i++;
 		if (s[i] == '\0')
 			break ;
 		k = 0;
@@ -52,10 +52,11 @@ void	split_string(const char *s, char c, char **res, int *j)
 			k++;
 		res[*j] = ft_substr(s, i, k);
 		if (!res[*j])
-			return ;
+			return (1);
 		(*j)++;
 		i += k;
 	}
+	return (0);
 }
 
 char	**ft_split(const char *s, char c)
@@ -69,7 +70,8 @@ char	**ft_split(const char *s, char c)
 	res = (char **)malloc((countword(s, c) + 1) * sizeof(char *));
 	if (res == NULL)
 		return (NULL);
-	split_string(s, c, res, &j);
+	if (split_string(s, c, res, &j))
+		return (NULL);
 	res[j] = NULL;
 	return (res);
 }
